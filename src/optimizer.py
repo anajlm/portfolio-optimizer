@@ -186,7 +186,7 @@ class PortfolioOptimizer:
                 tuple_get = (j,m)
                 initial_stock = self.params['Q'].get(tuple_get, 0)
                 RHS = initial_stock + \
-                      quicksum(self.vars['t'][j,k,m] for k in self.model_sets['J'] if k!=j)
+                      quicksum(self.vars['t'][k,j,m] for k in self.model_sets['J'] if k!=j)
 
                 self.model.addConstr(
                     # LHS
@@ -216,6 +216,7 @@ class PortfolioOptimizer:
             'cod_dep': array_j
         })
         df_output_X['obra_atendida'] = 1
+        df_output_X.to_csv('output_var_X.csv')
 
         # Generate DF grouped to compare with professor's solution
         df_real_output = (
@@ -249,5 +250,5 @@ class PortfolioOptimizer:
                 }
             )
         )
+        df_grouped.to_csv('output_agrupado.csv')
 
-        breakpoint()
