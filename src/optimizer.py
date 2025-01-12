@@ -172,12 +172,9 @@ class PortfolioOptimizer:
             )
         
         # Restrição 2 - Balanço de massa do estoque de materiais
-        combinations_mj = set(zip(self.obras['cod_mat'], self.obras['cod_dep']))
         print('Criando restrição 2')
         for m in tqdm(self.model_sets['M']):
             for j in self.model_sets['J']:  
-                if (m,j) not in combinations_mj:
-                    continue
 
                 LHS = quicksum(self.vars['x'][i, j] * self.params['q'][i, m] for i in self.model_sets['I_j'][j] if m in self.model_sets['M_i'][i]) + \
                       quicksum(self.vars['t'][j, k, m] for k in self.model_sets['J'] if k!=j)              
